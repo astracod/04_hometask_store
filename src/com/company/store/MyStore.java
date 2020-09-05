@@ -18,7 +18,6 @@ public class MyStore {
     public MyStore() {
         nomenclature = new Vector<>();
         cart = new Cart();
-//        this.amount = amount;
         nomenclature.addInArray(new Product(1, "кофе \"Паулик\" ", 300, "вакуумная упаковкаб вес 250 гр"));
         nomenclature.addInArray(new Product(2, "чай \"Бруклин\" ", 400, "вакуумная упаковка, вес 400 гр"));
         nomenclature.addInArray(new Product(3, "хлеб \"Бородинский\" ", 50, "упакован в пищевую пленку, вес 200 гр"));
