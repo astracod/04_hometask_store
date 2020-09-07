@@ -7,7 +7,9 @@ package com.company.store;
     краткое описание
     */
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private int article;
     private int price;

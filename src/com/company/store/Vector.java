@@ -1,5 +1,7 @@
 package com.company.store;
 
+import java.io.Serializable;
+
 /***
  * методы:
  * 1) Записать значение в массив
@@ -8,7 +10,7 @@ package com.company.store;
  * @param <T>
  */
 
-public class Vector<T> {
+public class Vector<T> implements Serializable {
     private Object[] arr;
 
     private int size = 0;

@@ -1,7 +1,9 @@
 package com.company.store;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /*твоя следующая задача сделать консольный магазин со следующим функционалом
@@ -14,7 +16,7 @@ import java.util.Scanner;
     6. Изменение количества товаров в корзине
     7. Формирование заказа (крассивый выывод содержимого корзины с заголовком (номер заказа) и итоговой суммой, после чего корзина очищается)
 */
-public class Menu {
+public class Menu  {
     private MyStore store;
     private Scanner scanner;
     private PrintStream out;
@@ -29,7 +31,7 @@ public class Menu {
         this.out = out;
     }
 
-    public boolean showMenu() {
+    public boolean showMenu() throws IOException, ClassNotFoundException {
         out.println("    1. Просмотр списка товаров\n" +
                 "    2. Просмотр подробной информации о товаре по его коду\n" +
                 "    3. Добавление товара в корзину по его коду\n" +
@@ -44,7 +46,7 @@ public class Menu {
     }
 
 
-    public void responseToRequest(int answer) {
+    public void responseToRequest(int answer) throws IOException, ClassNotFoundException {
         if (answer == 1) {
             store.showNomenclature();
         }

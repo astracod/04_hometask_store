@@ -9,7 +9,10 @@ package com.company.store;
     7. Формирование заказа (крассивый выывод содержимого корзины с заголовком (номер заказа) и итоговой суммой, после чего корзина очищается)
     */
 
-public class MyStore {
+import java.io.IOException;
+import java.io.Serializable;
+
+public class MyStore  {
 
     private Vector<Product> nomenclature;
     private Cart cart;
@@ -63,7 +66,7 @@ public void information(String information){
     /**
      * Добавление товара в корзину по его коду  с добавлением количества
      */
-    public void addProductByArticle(int article, int quantity) {
+    public void addProductByArticle(int article, int quantity) throws IOException {
         for (int i = 0; i < nomenclature.getSize(); i++) {
             if (article == nomenclature.getIndex(i).getArticle())
                 cart.addingItemInBasketByAndQuantity(nomenclature.getIndex(i), quantity);
@@ -74,7 +77,7 @@ public void information(String information){
     /**
      * удаление товара из корзины
      */
-    public void deleteProductFromCart(int article) {
+    public void deleteProductFromCart(int article) throws IOException {
         cart.productRemoval(article);
     }
 
@@ -88,14 +91,14 @@ public void information(String information){
     /**
      * Просмотр товаров в корзине
      */
-    public void showCart() {
+    public void showCart() throws IOException, ClassNotFoundException {
         cart.showBasket();
     }
 
     /**
      * Изменение количества товаров в корзине
      */
-    public void changeQuantityOnProduct(int article, int quantity) {
+    public void changeQuantityOnProduct(int article, int quantity) throws IOException {
         cart.changeQuantity(article, quantity);
     }
 
