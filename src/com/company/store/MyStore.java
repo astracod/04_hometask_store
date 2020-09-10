@@ -10,7 +10,7 @@ package com.company.store;
     */
 
 import java.io.IOException;
-import java.io.Serializable;
+
 
 public class MyStore  {
 
@@ -91,7 +91,7 @@ public void information(String information){
     /**
      * Просмотр товаров в корзине
      */
-    public void showCart() throws IOException, ClassNotFoundException {
+    public void showCart()  {
         cart.showBasket();
     }
 
@@ -105,7 +105,7 @@ public void information(String information){
     /**
      *   формирование заказа
      */
-    public void score(){
+    public void score() throws IOException {
         cart.getPriceForCheck();
     }
 

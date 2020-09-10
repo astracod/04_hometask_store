@@ -3,7 +3,6 @@ package com.company.store;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.Scanner;
 
 /*твоя следующая задача сделать консольный магазин со следующим функционалом
@@ -16,10 +15,25 @@ import java.util.Scanner;
     6. Изменение количества товаров в корзине
     7. Формирование заказа (крассивый выывод содержимого корзины с заголовком (номер заказа) и итоговой суммой, после чего корзина очищается)
 */
-public class Menu  {
+
+    /*Переделать меню
+    Создать интерфейс MenuAction (пункт меню)
+    2 метода: getActionName (получить имя пункта) и execute(выполнить)
+
+    Создать отдельные классы выполняющие каждое отдельное действие пункта меню
+
+    В классе меню создать массив  пунктов(Vector<MenuAction>),
+    для вывода меню использовать цикл с выводом имени пункта меню и его номера (индекс массива+1)
+    При обработке пункта меню доставать из массива элемент по индексу и выполнять execute
+    (таким образом огромный if больше не нужен)*/
+
+
+public class Menu {
+
     private MyStore store;
     private Scanner scanner;
     private PrintStream out;
+    private Vector<MenuAction> getActionName;
 
 
     public Menu() {
@@ -27,8 +41,23 @@ public class Menu  {
 
     public Menu(InputStream input, PrintStream out) {
         this.store = new MyStore();
+        this.getActionName = new Vector<>();
         this.scanner = new Scanner(input);
         this.out = out;
+        MenuAction show = new ShowNomenclature();
+        getActionName.addInArray(show);
+        MenuAction show2 =  new ShowProductByArticle(input,out);
+        getActionName.addInArray(show2);
+        MenuAction show3 = new AddProductByArticle(input,out);
+        getActionName.addInArray(show3);
+        MenuAction show4 = new DeleteProductFromCart(input,out);
+        getActionName.addInArray(show4);
+        MenuAction show5 = new ShowCart(input, out);
+        getActionName.addInArray(show5);
+        MenuAction show6 = new ChangeQuantityOnProduct(input, out);
+        getActionName.addInArray(show6);
+        MenuAction show7 = new Score(input, out);
+        getActionName.addInArray(show7);
     }
 
     public boolean showMenu() throws IOException, ClassNotFoundException {
@@ -39,14 +68,28 @@ public class Menu  {
                 "    5. Просмотр товаров в корзине\n" +
                 "    6. Изменение количества товаров в корзине\n" +
                 "    7. Формирование заказа "
-                );
+        );
         int answer = Integer.parseInt(scanner.nextLine());
-        responseToRequest(answer);
+//        responseToRequest(answer);
+        answerMenu(answer);
         return answer != 7;
     }
 
+    public void answerMenu(int answer) throws IOException {
+/*   Остаточное состояние : почему дублируется цифра при выводе и строка первого запроса ->
+    2
+    Просмотр списка товаров
+    Просмотр подробной информации о товаре по его коду
+    */
 
-    public void responseToRequest(int answer) throws IOException, ClassNotFoundException {
+        for (int i = 0; i < getActionName.getSize(); i++) {
+            if (answer == getActionName.getIndex(i).getActionName(i)) {
+                getActionName.getIndex(i).execute(this);
+            }
+        }
+    }
+
+    /*public void responseToRequest(int answer) throws IOException, ClassNotFoundException {
         if (answer == 1) {
             store.showNomenclature();
         }
@@ -82,5 +125,5 @@ public class Menu  {
             store.emptyTheCart();
             System.out.println(" Всего доброго!!!");
         }
-    }
+    }*/
 }

@@ -97,10 +97,11 @@ public class Vector<T> implements Serializable {
         }
     }
 
+    /**
+     * отчищение массива
+     */
     public void allDelete(){
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = null;
-        }
+        arr = new Object[capacity];
     }
 
 

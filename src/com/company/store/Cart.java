@@ -12,11 +12,10 @@ public class Cart {
 
     private Vector<CartItem> items;
     private Vector<Order> order;
-    private Vector<CartItem> file;
+
 
 
     public Cart() {
-        file = new Vector<>();
         items = new Vector<>();
         order = new Vector<>();
     }
@@ -33,34 +32,7 @@ public class Cart {
     public void myStream() throws IOException {
         OutputStream out = new FileOutputStream("C:/Users/Admin/Desktop/2.txt");
         ObjectOutputStream outward = new ObjectOutputStream(out);
-        outward.writeObject(file);
-    }
-
-    /**
-     * метод записи данных в файл, для дальнейшей передачи его в поток
-     *
-     * @param product
-     * @param quantity
-     * @throws IOException
-     */
-
-    public void writingToFile(Product product, int quantity) throws IOException {
-        file.addInArray(new CartItem(product, quantity));
-        myStream();
-    }
-
-    /**
-     * показать содержание внешнего файла
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    public void showFile() throws IOException, ClassNotFoundException {
-        InputStream in = new FileInputStream("C:/Users/Admin/Desktop/2.txt");
-        ObjectInputStream outside = new ObjectInputStream(in);
-        file = (Vector<CartItem>) outside.readObject();
-        for (int i = 0; i < file.getSize(); i++) {
-            System.out.println(" Вывод с файла : " + file.getIndex(i));
-        }
+        outward.writeObject(items);
     }
 
     /**
@@ -81,7 +53,7 @@ public class Cart {
         }
         if (!itemСontains) {
             items.addInArray(new CartItem(product, quantity));
-            writingToFile(product, quantity);
+            myStream();
         }
         line();
     }
@@ -90,19 +62,18 @@ public class Cart {
     /**
      * Показать корзину.
      */
-    public void showBasket() throws IOException, ClassNotFoundException {
+    public void showBasket()  {
         System.out.println(" Содержимое корзины : \n");
         for (int j = 0; j < items.getSize(); j++) {
             System.out.println(items.getIndex(j));
         }
-        showFile();
         line();
     }
 
     /**
      * Метод общитывающий стоимость покупки
      */
-    public void getPriceForCheck() {
+    public void getPriceForCheck() throws IOException {
         int a = 0;
         int s = 0;
         String d = "";
@@ -117,7 +88,8 @@ public class Cart {
                 totalOrder += v;
             }
         }
-
+        items.allDelete();
+        myStream();
         for (int i = 0; i < order.getSize(); i++) {
             System.out.println(order.getIndex(i));
         }
@@ -140,7 +112,6 @@ public class Cart {
         }
         if (a != -1) {
             items.removeArrayElement(a);
-            file.removeArrayElement(a);
             myStream();
         }
 
@@ -165,7 +136,6 @@ public class Cart {
         for (int i = 0; i < items.getSize(); i++) {
             if (article == items.getIndex(i).getProduct().getArticle()) {
                 items.getIndex(i).setQuantity(quantity);
-                file.getIndex(i).setQuantity(quantity);
                 myStream();
                 break;
             }
