@@ -13,17 +13,16 @@ public class ChangeQuantityOnProduct implements MenuAction {
     private int num;
     private String name;
 
-    public ChangeQuantityOnProduct( InputStream input, PrintStream out) {
-        this.store = new MyStore();
+    public ChangeQuantityOnProduct( InputStream input, PrintStream out,MyStore store) {
+        this.store = store;
         this.scanner = new Scanner(input);
         this.out = out;
-        this.name = "Удаление товара из корзины :";
+        this.name = "Изменение количества товаров в корзине";
     }
 
     @Override
-    public int getActionName(int i) {
-        System.out.println(name);
-        return num = i + 1;
+    public String getActionName() {
+        return  name;
     }
 
     @Override

@@ -14,17 +14,16 @@ public class AddProductByArticle implements MenuAction {
 
 
 
-    public AddProductByArticle(InputStream input, PrintStream out) {
-        this.store = new MyStore();
+    public AddProductByArticle(InputStream input, PrintStream out,MyStore store) {
+        this.store = store;
         this.scanner = new Scanner(input);
         this.out = out;
-        this.name = "Добавление товара в корзину по его коду :";
+        this.name = "Добавление товара в корзину по его коду";
     }
 
     @Override
-    public int getActionName(int i) {
-        System.out.println(name);
-        return num = i + 1;
+    public String getActionName() {
+        return  name;
     }
 
     @Override

@@ -44,86 +44,33 @@ public class Menu {
         this.getActionName = new Vector<>();
         this.scanner = new Scanner(input);
         this.out = out;
-        MenuAction show = new ShowNomenclature();
+        MenuAction show = new ShowNomenclature( store);
         getActionName.addInArray(show);
-        MenuAction show2 =  new ShowProductByArticle(input,out);
+        MenuAction show2 =  new ShowProductByArticle(input,out,store);
         getActionName.addInArray(show2);
-        MenuAction show3 = new AddProductByArticle(input,out);
+        MenuAction show3 = new AddProductByArticle(input,out,store);
         getActionName.addInArray(show3);
-        MenuAction show4 = new DeleteProductFromCart(input,out);
+        MenuAction show4 = new DeleteProductFromCart(input,out,store);
         getActionName.addInArray(show4);
-        MenuAction show5 = new ShowCart(input, out);
+        MenuAction show5 = new ShowCart(input, out,store);
         getActionName.addInArray(show5);
-        MenuAction show6 = new ChangeQuantityOnProduct(input, out);
+        MenuAction show6 = new ChangeQuantityOnProduct(input, out,store);
         getActionName.addInArray(show6);
-        MenuAction show7 = new Score(input, out);
+        MenuAction show7 = new Score(input, out,store);
         getActionName.addInArray(show7);
     }
 
-    public boolean showMenu() throws IOException, ClassNotFoundException {
-        out.println("    1. Просмотр списка товаров\n" +
-                "    2. Просмотр подробной информации о товаре по его коду\n" +
-                "    3. Добавление товара в корзину по его коду\n" +
-                "    4. Удаление товара из корзины\n" +
-                "    5. Просмотр товаров в корзине\n" +
-                "    6. Изменение количества товаров в корзине\n" +
-                "    7. Формирование заказа "
-        );
+    public boolean showMenu() throws IOException {
+        for (int i = 0; i < getActionName.getSize(); i++) {
+            out.println( i+1 +" "+getActionName.getIndex(i).getActionName());
+        }
         int answer = Integer.parseInt(scanner.nextLine());
-//        responseToRequest(answer);
         answerMenu(answer);
         return answer != 7;
     }
 
     public void answerMenu(int answer) throws IOException {
-/*   Остаточное состояние : почему дублируется цифра при выводе и строка первого запроса ->
-    2
-    Просмотр списка товаров
-    Просмотр подробной информации о товаре по его коду
-    */
-
-        for (int i = 0; i < getActionName.getSize(); i++) {
-            if (answer == getActionName.getIndex(i).getActionName(i)) {
-                getActionName.getIndex(i).execute(this);
-            }
-        }
+        MenuAction action = getActionName.getIndex(answer-1);
+        action.execute(this);
     }
-
-    /*public void responseToRequest(int answer) throws IOException, ClassNotFoundException {
-        if (answer == 1) {
-            store.showNomenclature();
-        }
-        if (answer == 2) {
-            System.out.println(" Введите артикль товара :");
-            int a = Integer.parseInt(scanner.nextLine());
-            store.showProductByArticle(a);
-        }
-        if (answer == 3) {
-            System.out.println(" Введите артикль товара :");
-            int a = Integer.parseInt(scanner.nextLine());
-            System.out.println(" Введите количество товара :");
-            int b = Integer.parseInt(scanner.nextLine());
-            store.addProductByArticle(a, b);
-        }
-        if (answer == 4) {
-            System.out.println(" Введите артикль товара :");
-            int a = Integer.parseInt(scanner.nextLine());
-            store.deleteProductFromCart(a);
-        }
-        if (answer == 5) {
-            store.showCart();
-        }
-        if (answer == 6) {
-            System.out.println(" Введите артикль товара :");
-            int a = Integer.parseInt(scanner.nextLine());
-            System.out.println(" Введите количество товара :");
-            int b = Integer.parseInt(scanner.nextLine());
-            store.changeQuantityOnProduct(a, b);
-        }
-        if (answer == 7){
-            store.score();
-            store.emptyTheCart();
-            System.out.println(" Всего доброго!!!");
-        }
-    }*/
 }

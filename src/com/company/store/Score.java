@@ -12,17 +12,16 @@ public class Score implements MenuAction {
     private int num;
     private String name;
 
-    public Score(InputStream input, PrintStream out) {
-        this.store = new MyStore();
+    public Score(InputStream input, PrintStream out,MyStore store) {
+        this.store = store;
         this.scanner = new Scanner(input);
         this.out = out;
-        this.name = "Формирование заказа :";
+        this.name = "Формирование заказа";
     }
 
     @Override
-    public int getActionName(int i) {
-        System.out.println(name);
-        return num = i + 1;
+    public String getActionName() {
+        return  name;
     }
 
     @Override

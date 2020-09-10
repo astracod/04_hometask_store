@@ -13,18 +13,17 @@ public class ShowCart implements MenuAction {
     private int num;
     private String name;
 
-    public ShowCart(InputStream input, PrintStream out) {
-        this.store = new MyStore();
+    public ShowCart(InputStream input, PrintStream out,MyStore store) {
+        this.store = store;
         this.scanner = new Scanner(input);
         this.out = out;
-        this.name = "Просмотр товаров в корзине :";
+        this.name = "Просмотр товаров в корзине";
     }
 
 
     @Override
-    public int getActionName(int i) {
-        System.out.println(name);
-        return num = i + 1;
+    public String getActionName() {
+        return  name;
     }
 
     @Override

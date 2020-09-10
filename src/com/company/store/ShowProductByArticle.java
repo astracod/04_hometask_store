@@ -13,18 +13,17 @@ public class ShowProductByArticle implements MenuAction {
     private String name;
     private int num ;
 
-    public ShowProductByArticle(InputStream inputStream, PrintStream out) {
-        this.store = new MyStore();
+    public ShowProductByArticle(InputStream inputStream, PrintStream out,MyStore store) {
+        this.store = store;
         this.scanner = new Scanner(inputStream);
         this.out = out;
-        this.name = "Просмотр подробной информации о товаре по его коду :";
+        this.name = "Просмотр подробной информации о товаре по его коду";
     }
 
 
     @Override
-    public int getActionName(int i) {
-        System.out.println(name);
-        return num = i + 1;
+    public String getActionName() {
+        return  name;
     }
 
     @Override
