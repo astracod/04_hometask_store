@@ -68,8 +68,9 @@ public void information(String information){
      */
     public void addProductByArticle(int article, int quantity) throws IOException {
         for (int i = 0; i < nomenclature.getSize(); i++) {
-            if (article == nomenclature.getIndex(i).getArticle())
+            if (article == nomenclature.getIndex(i).getArticle()){
                 cart.addingItemInBasketByAndQuantity(nomenclature.getIndex(i), quantity);
+            }
         }
     }
 

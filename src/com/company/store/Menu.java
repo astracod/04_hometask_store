@@ -39,30 +39,27 @@ public class Menu {
     public Menu() {
     }
 
+    /*  MenuAction show = new ShowNomenclature( store);
+            getActionName.addInArray(show);
+    заменить на
+    getActionName.addInArray(new ShowNomenclature( store));*/
     public Menu(InputStream input, PrintStream out) {
         this.store = new MyStore();
         this.getActionName = new Vector<>();
         this.scanner = new Scanner(input);
         this.out = out;
-        MenuAction show = new ShowNomenclature( store);
-        getActionName.addInArray(show);
-        MenuAction show2 =  new ShowProductByArticle(input,out,store);
-        getActionName.addInArray(show2);
-        MenuAction show3 = new AddProductByArticle(input,out,store);
-        getActionName.addInArray(show3);
-        MenuAction show4 = new DeleteProductFromCart(input,out,store);
-        getActionName.addInArray(show4);
-        MenuAction show5 = new ShowCart(input, out,store);
-        getActionName.addInArray(show5);
-        MenuAction show6 = new ChangeQuantityOnProduct(input, out,store);
-        getActionName.addInArray(show6);
-        MenuAction show7 = new Score(input, out,store);
-        getActionName.addInArray(show7);
+        getActionName.addInArray(new ShowNomenclature(store));
+        getActionName.addInArray(new ShowProductByArticle(input, out, store));
+        getActionName.addInArray(new AddProductByArticle(input, out, store));
+        getActionName.addInArray(new DeleteProductFromCart(input, out, store));
+        getActionName.addInArray(new ShowCart(input, out, store));
+        getActionName.addInArray(new ChangeQuantityOnProduct(input, out, store));
+        getActionName.addInArray(new Score(input, out, store));
     }
 
     public boolean showMenu() throws IOException {
         for (int i = 0; i < getActionName.getSize(); i++) {
-            out.println( i+1 +" "+getActionName.getIndex(i).getActionName());
+            out.println((i + 1) + " -> " + getActionName.getIndex(i).getActionName());
         }
         int answer = Integer.parseInt(scanner.nextLine());
         answerMenu(answer);
@@ -70,7 +67,11 @@ public class Menu {
     }
 
     public void answerMenu(int answer) throws IOException {
-        MenuAction action = getActionName.getIndex(answer-1);
-        action.execute(this);
+        if (answer <= 0 || answer >= 8) {
+            out.println(" Введите корректную дерективу.");
+        } else {
+            MenuAction action = getActionName.getIndex(answer - 1);
+            action.execute(this);
+        }
     }
 }
